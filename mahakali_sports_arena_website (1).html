@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahakali Sports Arena - Box Cricket & Pickleball Booking</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            950: '#020617',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Smooth state transitions */
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950">
+
+    <!-- Toast Alert Container -->
+    <div id="toast-container" class="fixed top-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- Hero Header Area -->
+    <header class="relative bg-slate-900 border-b border-slate-800 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#34d399_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        
+        <!-- Decorative dynamic glows -->
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-lime-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 relative z-10">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                
+                <!-- Branding Logo & Text -->
+                <div class="flex items-center gap-4 text-center md:text-left">
+                    <div class="h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-lime-500 p-0.5 shadow-xl shadow-emerald-500/20">
+                        <div class="h-full w-full bg-slate-950 rounded-2xl flex items-center justify-center">
+                            <span class="text-2xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-lime-400">
+                                MSA
+                            </span>
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white flex items-center justify-center md:justify-start gap-2">
+                            Mahakali sports arena
+                            <span class="bg-emerald-500/15 text-emerald-400 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-emerald-500/20">
+                                Live Booking
+                              </span>
+                        </h1>
+                        <p class="text-slate-400 text-sm mt-1 sm:mt-0 font-medium">
+                            Premium Box Cricket & Pro-Grade Pickleball
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Contact Bar -->
+                <div class="flex flex-wrap items-center justify-center gap-4 bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-emerald-400">
+                            <i data-lucide="smartphone" class="h-5 w-5"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Book Via Mobile</div>
+                            <a href="tel:+91 8849484727" class="text-sm font-bold text-slate-200 hover:text-emerald-400 transition-colors">
+                                +91 8849484727  
+                            </a>
+                        </div>
+                    </div>
+                    <div class="h-8 w-px bg-slate-800 hidden sm:block"></div>
+                    <div class="hidden sm:flex items-center gap-2 text-xs text-slate-400">
+                        <i data-lucide="map-pin" class="h-4 w-4 text-rose-500"></i>
+                        <span class="max-w-[180px] truncate">Opp. Green Gardens, Sport Plaza Road, Elite Town</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+        <!-- Introduction Section & Sport Switcher -->
+        <section class="text-center max-w-3xl mx-auto mb-12">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4">
+                <i data-lucide="sparkles" class="h-3 w-3"></i> Step Up Your Game Today
+            </div>
+            <h2 class="text-4xl font-extrabold text-white tracking-tight sm:text-5xl">
+                Pick Your Arena & Reserve Your Spot
+            </h2>
+            <p class="mt-4 text-slate-400 text-lg leading-relaxed">
+                Choose between our high-grade enclosed Box Cricket turfs or international acrylic-surface Pickleball courts. Instant slot calculation, transparent pricing, and seamless booking.
+            </p>
+
+            <!-- Large Sport Switcher Buttons -->
+            <div class="mt-8 p-2 bg-slate-900/90 rounded-2xl border border-slate-800 max-w-md mx-auto grid grid-cols-2 gap-2 shadow-2xl">
+                <button
+                    id="btn-switch-cricket"
+                    onclick="setSport('cricket')"
+                    class="flex items-center justify-center gap-3 py-4 px-4 rounded-xl font-bold text-sm transition-all duration-200"
+                >
+                    <i data-lucide="trophy" class="h-5 w-5"></i>
+                    Box Cricket
+                </button>
+                <button
+                    id="btn-switch-pickleball"
+                    onclick="setSport('pickleball')"
+                    class="flex items-center justify-center gap-3 py-4 px-4 rounded-xl font-bold text-sm transition-all duration-200"
+                >
+                    <i data-lucide="users" class="h-5 w-5"></i>
+                    Pickleball
+                </button>
+            </div>
+        </section>
+
+        <!-- Live Interactive Booking Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16" id="booking-section">
+            
+            <!-- LEFT: Configurator & Slot Grid (8 Cols) -->
+            <div class="lg:col-span-8 bg-slate-900/50 border border-slate-800/80 rounded-3xl p-6 sm:p-8 backdrop-blur-md">
+                
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-6 mb-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                            <i data-lucide="calendar-days" class="h-5 w-5 text-emerald-400"></i>
+                            Select Date & Court
+                        </h3>
+                        <p class="text-slate-400 text-xs mt-1">Bookings are open for up to 7 days in advance.</p>
+                    </div>
+
+                    <!-- Date Picker -->
+                    <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                        <input
+                            type="date"
+                            id="date-picker"
+                            onchange="setDate(this.value)"
+                            class="bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-medium w-full sm:w-auto cursor-pointer"
+                        />
+                    </div>
+                </div>
+
+                <!-- Court Selection Tabs -->
+                <div class="mb-8">
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
+                        Available Arenas / Courts:
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="court-tabs-container">
+                        <!-- Rendered Dynamically -->
+                    </div>
+                </div>
+
+                <!-- Timings Grid Legend -->
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-4 bg-slate-950/40 p-3 rounded-xl border border-slate-800/60">
+                    <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Select Timings Slot:</span>
+                    <div class="flex flex-wrap items-center gap-4 text-xs">
+                        <div class="flex items-center gap-1.5">
+                            <span class="h-3 w-3 rounded bg-slate-800 border border-slate-700 block"></span>
+                            <span class="text-slate-400">Available</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="h-3 w-3 rounded bg-rose-950/80 border border-rose-500/50 block"></span>
+                            <span class="text-rose-400">Booked</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="h-3 w-3 rounded id-selected-color-legend block"></span>
+                            <span class="id-selected-text-legend">Selected</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Core Grid of Slots -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3" id="slots-grid-container">
+                    <!-- Rendered Dynamically -->
+                </div>
+
+                <!-- Pricing Advisory -->
+                <div class="mt-6 flex items-start gap-3 bg-blue-950/20 border border-blue-900/30 p-4 rounded-2xl text-xs text-blue-300">
+                    <i data-lucide="info" class="h-5 w-5 text-blue-400 shrink-0 mt-0.5"></i>
+                    <div>
+                        <span class="font-bold">Pricing Guide & Light Charges:</span> Day charges apply for slots between 6:00 AM and 5:00 PM. Night slots (5:00 PM onwards) have premium pricing which is fully inclusive of professional floodlights power consumption.
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT: Booking Action & Cart (4 Cols) -->
+            <div class="lg:col-span-4 flex flex-col gap-6">
+                
+                <!-- Live Booking Summary Card -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 relative overflow-hidden shadow-2xl">
+                    
+                    <!-- Highlight Background Glow -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none"></div>
+
+                    <h3 class="text-lg font-bold text-white border-b border-slate-800 pb-4 mb-4 flex items-center justify-between">
+                        <span>Confirm Booking</span>
+                        <span class="text-xs bg-slate-800 text-slate-400 px-2 py-1 rounded">Step 2 of 2</span>
+                    </h3>
+
+                    <div class="space-y-4 text-sm">
+                        
+                        <!-- Active Sport Badge -->
+                        <div class="flex justify-between items-center bg-slate-950 p-3 rounded-xl border border-slate-800/60">
+                            <span class="text-slate-400">Sport Chosen:</span>
+                            <span id="summary-sport-badge" class="font-bold uppercase tracking-wider text-xs px-3 py-1 rounded-full">
+                                <!-- Sport Label -->
+                            </span>
+                        </div>
+
+                        <!-- Date Row -->
+                        <div class="flex justify-between items-center border-b border-slate-800/50 py-2">
+                            <span class="text-slate-400 flex items-center gap-1.5">
+                                <i data-lucide="calendar" class="h-4 w-4 text-slate-500"></i> Date:
+                            </span>
+                            <span id="summary-date" class="font-semibold text-slate-100">-</span>
+                        </div>
+
+                        <!-- Court Row -->
+                        <div class="flex justify-between items-center border-b border-slate-800/50 py-2">
+                            <span class="text-slate-400 flex items-center gap-1.5">
+                                <i data-lucide="trophy" class="h-4 w-4 text-slate-500"></i> Selected Arena:
+                            </span>
+                            <span id="summary-court" class="font-semibold text-slate-100">-</span>
+                        </div>
+
+                        <!-- Selected Slot Time -->
+                        <div class="flex justify-between items-center border-b border-slate-800/50 py-2">
+                            <span class="text-slate-400 flex items-center gap-1.5">
+                                <i data-lucide="clock" class="h-4 w-4 text-slate-500"></i> Time Slot:
+                            </span>
+                            <span id="summary-slot" class="font-bold text-slate-500 italic">Please select a slot</span>
+                        </div>
+
+                        <!-- Dynamic Price Calculation -->
+                        <div id="summary-pricing-container" class="hidden bg-emerald-950/20 border border-emerald-900/30 p-3 rounded-xl flex justify-between items-center">
+                            <span class="text-slate-400 font-medium">Estimated Pricing:</span>
+                            <span id="summary-price-tag" class="font-black text-emerald-400 text-lg">₹0</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Form Input elements -->
+                    <form id="booking-form" onsubmit="handleBookingSubmit(event)" class="mt-6 space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                                Player Name
+                            </label>
+                            <input
+                                id="input-name"
+                                type="text"
+                                required
+                                placeholder="Enter your full name"
+                                class="w-full bg-slate-950 border border-slate-800 text-slate-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all placeholder:text-slate-600"
+                            />
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
+                                Mobile Number (For Confirmation)
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3.5 top-3.5 text-slate-500 font-bold text-sm">+91</span>
+                                <input
+                                    id="input-phone"
+                                    type="tel"
+                                    required
+                                    maxlength="10"
+                                    placeholder="98765 43210"
+                                    oninput="this.value = this.value.replace(/\D/g, '')"
+                                    class="w-full bg-slate-950 border border-slate-800 text-slate-100 rounded-xl pl-12 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all placeholder:text-slate-600"
+                                />
+                            </div>
+                        </div>
+
+                        <button
+                            id="submit-booking-btn"
+                            type="submit"
+                            disabled
+                            class="w-full py-4 px-4 rounded-xl font-bold text-sm shadow-xl flex items-center justify-center gap-2 transition-all bg-slate-800 text-slate-500 cursor-not-allowed"
+                        >
+                            <i data-lucide="check" class="h-5 w-5"></i>
+                            <span id="submit-btn-text">Select Timing Slot Above</span>
+                        </button>
+                    </form>
+
+                    <p class="text-center text-[10px] text-slate-500 mt-4 leading-relaxed">
+                        By clicking booking, you agree to our standard ground rules. Payment will be processed at the venue front desk.
+                    </p>
+
+                </div>
+
+                <!-- Phone/WhatsApp Quick Support -->
+                <div class="bg-slate-900/60 border border-slate-800/80 p-5 rounded-2xl flex items-center gap-4">
+                    <div class="h-10 w-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 shrink-0">
+                        <i data-lucide="phone" class="h-5 w-5"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-200">Got Questions or Bulk Bookings?</h4>
+                        <p class="text-xs text-slate-400 mt-0.5">Call our helpline directly for assistance.</p>
+                        <a href="tel:+919876543210" class="text-xs text-emerald-400 font-bold mt-1 inline-block hover:underline">
+                            +91 98765 43210
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Pricing Guide Banner Grid -->
+        <section class="mb-16">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <h3 class="text-2xl font-bold text-white tracking-tight">Simple, Transparent Rates</h3>
+                <p class="text-slate-400 text-sm mt-1">Rent professional box and courts by the hour. No hidden fees.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                
+                <!-- Cricket Pricing Card -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-emerald-500/20 p-6 rounded-3xl relative overflow-hidden animate-hover">
+                    <div class="absolute top-4 right-4 text-emerald-400 bg-emerald-400/10 px-3 py-1.5 rounded-2xl text-xs font-black uppercase tracking-wider">
+                        Box Cricket
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-200">Enclosed Box Cricket</h4>
+                    <p class="text-xs text-slate-400 mt-1">Heavy-duty nets, premium artificial turf & professional tennis balls.</p>
+                    
+                    <div class="mt-6 space-y-3">
+                        <div class="flex justify-between items-center py-2 border-b border-slate-800/80">
+                            <span class="text-slate-400 text-sm">Day Hours (6 AM - 5 PM)</span>
+                            <span class="text-xl font-bold text-white">₹1,200<span class="text-xs text-slate-500 font-normal"> / Hour</span></span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="text-slate-400 text-sm">Night Hours (5 PM - 11 PM)</span>
+                            <span class="text-xl font-bold text-emerald-400">₹1,500<span class="text-xs text-slate-500 font-normal"> / Hour</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pickleball Pricing Card -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-950 border border-lime-400/20 p-6 rounded-3xl relative overflow-hidden">
+                    <div class="absolute top-4 right-4 text-lime-400 bg-lime-400/10 px-3 py-1.5 rounded-2xl text-xs font-black uppercase tracking-wider">
+                        Pickleball
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-200">Acrylic Courts</h4>
+                    <p class="text-xs text-slate-400 mt-1">Pro shock-absorbing cushioned acrylic flooring & tournament net systems.</p>
+                    
+                    <div class="mt-6 space-y-3">
+                        <div class="flex justify-between items-center py-2 border-b border-slate-800/80">
+                            <span class="text-slate-400 text-sm">Day Hours (6 AM - 5 PM)</span>
+                            <span class="text-xl font-bold text-white">₹500<span class="text-xs text-slate-500 font-normal"> / Hour</span></span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="text-slate-400 text-sm">Night Hours (5 PM - 11 PM)</span>
+                            <span class="text-xl font-bold text-lime-400">₹700<span class="text-xs text-emerald-500 font-normal"> / Hour</span></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Dedicated Section: Discipline Notice & Ground Rules -->
+        <section class="bg-slate-900/40 border border-slate-800/80 rounded-3xl p-6 sm:p-10 relative overflow-hidden mb-16" id="discipline-notice">
+            <div class="absolute top-0 left-0 w-32 h-32 bg-amber-500/5 rounded-full blur-2xl pointer-events-none"></div>
+            
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-800 pb-8 mb-8">
+                <div class="max-w-2xl">
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/15 border border-amber-500/30 rounded-full text-amber-400 text-xs font-bold uppercase tracking-widest mb-3">
+                        <i data-lucide="shield-alert" class="h-3.5 w-3.5"></i> Club Code of Conduct
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                        Discipline Notice & Safety Guidelines
+                    </h3>
+                    <p class="text-slate-400 text-sm mt-2 leading-relaxed">
+                        To maintain high standards of gameplay and ensure structural longevity of our world-class surfaces, all players must respect the following rules. Failure to comply will lead to slot forfeiture.
+                    </p>
+                </div>
+                
+                <div class="shrink-0">
+                    <div class="bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-2xl px-5 py-4 max-w-[280px]">
+                        <div class="text-xs font-bold uppercase tracking-wider mb-1">Assistance & Reporting</div>
+                        <p class="text-[11px] text-slate-400">For emergency disputes or reporting any damages, please alert the front officer immediately.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Layout of Discipline Rules -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="discipline-grid-container">
+                <!-- Rendered Dynamically -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Booking Receipt / Success Modal -->
+    <div id="receipt-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center px-4 overflow-y-auto">
+        <div class="fixed inset-0 bg-slate-950/80 backdrop-blur-md" onclick="closeReceipt()"></div>
+        
+        <div class="bg-slate-900 border border-emerald-500/30 rounded-3xl max-w-md w-full p-6 relative z-10 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            
+            <!-- Top Design Glows -->
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-48 h-48 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+            <div class="text-center pb-6 border-b border-slate-800">
+                <div class="h-16 w-16 bg-emerald-500/10 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto text-emerald-400 mb-3">
+                    <i data-lucide="check" class="h-8 w-8"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Booking Reserved!</h3>
+                <p class="text-slate-400 text-xs mt-1">Please show this screen at reception to initiate play.</p>
+            </div>
+
+            <!-- Receipt Summary Details -->
+            <div class="py-6 space-y-4 text-sm">
+                <div class="flex justify-between py-1.5 border-b border-slate-800/40">
+                    <span class="text-slate-400">Player Name:</span>
+                    <span id="receipt-name" class="font-bold text-white">-</span>
+                </div>
+                <div class="flex justify-between py-1.5 border-b border-slate-800/40">
+                    <span class="text-slate-400">Mobile Number:</span>
+                    <span id="receipt-phone" class="font-bold text-white">-</span>
+                </div>
+                <div class="flex justify-between py-1.5 border-b border-slate-800/40">
+                    <span class="text-slate-400">Sport Activity:</span>
+                    <span id="receipt-sport" class="font-bold text-emerald-400 uppercase tracking-wide">-</span>
+                </div>
+                <div class="flex justify-between py-1.5 border-b border-slate-800/40">
+                    <span class="text-slate-400">Court / Arena:</span>
+                    <span id="receipt-court" class="font-bold text-slate-200">-</span>
+                </div>
+                <div class="flex justify-between py-1.5 border-b border-slate-800/40">
+                    <span class="text-slate-400">Reserved Slot:</span>
+                    <span id="receipt-slot" class="font-bold text-emerald-400">-</span>
+                </div>
+                <div class="flex justify-between py-1.5">
+                    <span class="text-slate-400">Date:</span>
+                    <span id="receipt-date" class="font-bold text-slate-200">-</span>
+                </div>
+
+                <!-- Total estimation -->
+                <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 flex justify-between items-center mt-2">
+                    <div>
+                        <div class="text-xs text-slate-500 font-bold uppercase tracking-wider">Payable at Venue</div>
+                        <div class="text-[10px] text-slate-500">Includes GST & Floodlights</div>
+                    </div>
+                    <div id="receipt-total" class="text-xl font-extrabold text-white">
+                        ₹0
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Close buttons -->
+            <div class="flex gap-3">
+                <button
+                    onclick="closeReceipt()"
+                    class="w-full py-3.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition-colors"
+                >
+                    Close Receipt
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer Details -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-12 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                
+                <!-- Column 1: Info -->
+                <div>
+                    <h4 class="text-white font-extrabold text-md tracking-tight uppercase mb-4">Mahakali sports arena</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed max-w-sm">
+                        Experience high-performance synthetic acrylic Pickleball courts and dense turf Box Cricket fields designed for high-rebound and safe play. Perfect for standard group sports matches, training, and recreation.
+                    </p>
+                </div>
+
+                <!-- Column 2: Quick Contacts -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Direct Contact Helpdesk</h4>
+                    <ul class="space-y-3 text-xs text-slate-400">
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="smartphone" class="h-4 w-4 text-emerald-400"></i>
+                            <span>Main Helpline: <a href="tel:+919876543210" class="text-slate-200 hover:text-emerald-400 font-bold">+91 98765 43210</a></span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="phone" class="h-4 w-4 text-emerald-400"></i>
+                            <span>Alternative Booking: <a href="tel:+919876543211" class="text-slate-200 hover:text-emerald-400">+91 98765 43211</a></span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="info" class="h-4 w-4 text-slate-500"></i>
+                            <span>Email: <a href="mailto:play@sportspherearena.com" class="text-slate-200 hover:underline">play@sportspherearena.com</a></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Location -->
+                <div>
+                    <h4 class="text-white font-bold text-xs uppercase tracking-widest mb-4">Arena Location</h4>
+                    <div class="flex gap-2.5 items-start text-xs text-slate-400">
+                        <i data-lucide="map-pin" class="h-5 w-5 text-rose-500 shrink-0"></i>
+                        <p class="leading-relaxed">
+                            <strong>Mahakali sports arena</strong><br />
+                            Opp. Green Gardens, Sport Plaza Road, Elite Town - 388001
+                        </p>
+                    </div>
+                    <div class="mt-4">
+                        <span class="inline-flex items-center gap-1 text-[11px] text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded border border-emerald-500/20 font-bold">
+                            Open Daily: 06:00 AM – 11:00 PM
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Copyright Area -->
+            <div class="border-t border-slate-900 pt-6 text-center text-[11px] text-slate-600 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p>© 2026 Mahakali sports arena. All Rights Reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#discipline-notice" class="hover:underline hover:text-slate-400">Rules & Regulations</a>
+                    <span>•</span>
+                    <a href="#booking-section" class="hover:underline hover:text-slate-400">Refund Policy</a>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Vanilla Javascript Logic Core -->
+    <script>
+        // Business Configuration & State Initializer
+        const businessDetails = {
+            name: "Mahakali sports arena",
+            pricing: {
+                cricket: { day: 1200, night: 1500 },
+                pickleball: { day: 500, night: 700 }
+            }
+        };
+
+        const courts = {
+            cricket: ['Box A (Premium Turf)', 'Box B (High Bounce Turf)'],
+            pickleball: ['Court 1 (Pro Acrylic)', 'Court 2 (Pro Acrylic)', 'Court 3 (Pro Acrylic)']
+        };
+
+        const timeSlots = [
+            { time: "06:00 AM - 07:00 AM", type: "day" },
+            { time: "07:00 AM - 08:00 AM", type: "day" },
+            { time: "08:00 AM - 09:00 AM", type: "day" },
+            { time: "09:00 AM - 10:00 AM", type: "day" },
+            { time: "10:00 AM - 11:00 AM", type: "day" },
+            { time: "11:00 AM - 12:00 PM", type: "day" },
+            { time: "12:00 PM - 01:00 PM", type: "day" },
+            { time: "01:00 PM - 02:00 PM", type: "day" },
+            { time: "02:00 PM - 03:00 PM", type: "day" },
+            { time: "03:00 PM - 04:00 PM", type: "day" },
+            { time: "04:00 PM - 05:00 PM", type: "day" },
+            { time: "05:00 PM - 06:00 PM", type: "night" },
+            { time: "06:00 PM - 07:00 PM", type: "night" },
+            { time: "07:00 PM - 08:00 PM", type: "night" },
+            { time: "08:00 PM - 09:00 PM", type: "night" },
+            { time: "09:00 PM - 10:00 PM", type: "night" },
+            { time: "10:00 PM - 11:00 PM", type: "night" },
+        ];
+
+        const disciplineRules = [
+            {
+                id: 1,
+                title: "Mandatory Footwear Rule",
+                desc: "Only flat non-marking sports shoes are allowed on the acrylic Pickleball courts. Studs or spikes are strictly prohibited inside Box Cricket to preserve turf longevity.",
+                highlight: "Strict Footwear Check"
+            },
+            {
+                id: 2,
+                title: "Punctuality & Transition",
+                desc: "Players must strictly respect their scheduled hours. Please vacate the court promptly 5 minutes before your slot ends to allow the next booking a seamless transition.",
+                highlight: "Respect the Clock"
+            },
+            {
+                id: 3,
+                title: "Booking & Cancellation Policy",
+                desc: "Slot transfers or cancellations are allowed up to 12 hours prior to start time. No-shows or last-minute cancellations are non-refundable and non-adjustable.",
+                highlight: "12-Hour Notice"
+            },
+            {
+                id: 4,
+                title: "Hygiene & Cleanliness",
+                desc: "Spitting, chewing gum, or littering inside the courts is strictly banned. Trash cans are conveniently located around the perimeter. Let's keep our environment healthy!",
+                highlight: "Zero Litter Tolerance"
+            },
+            {
+                id: 5,
+                title: "No Aggression / Property Damage",
+                desc: "Friendly play is encouraged. Rough handling of equipment, hitting balls outside the designated safety netting, or verbal abuse will result in an immediate permanent ban.",
+                highlight: "Zero Tolerance"
+            },
+            {
+                id: 6,
+                title: "Guest Equipment Handling",
+                desc: "Sports equipment (bats, balls, paddles) can be rented at the front office. Any deliberate damage to hired gears must be compensated for before leaving.",
+                highlight: "Rentals Protected"
+            }
+        ];
+
+        // Active State variables
+        let selectedSport = 'cricket';
+        let selectedDate = new Date().toISOString().split('T')[0];
+        let selectedCourt = courts[selectedSport][0];
+        let selectedSlot = null;
+
+        // Simulated Database representing already occupied slots
+        const allBookings = [
+            { id: 1, sport: 'cricket', date: new Date().toISOString().split('T')[0], court: 'Box A (Premium Turf)', slot: '06:00 PM - 07:00 PM', name: 'Rahul Sharma' },
+            { id: 2, sport: 'cricket', date: new Date().toISOString().split('T')[0], court: 'Box A (Premium Turf)', slot: '08:00 PM - 09:00 PM', name: 'Amit Patel' },
+            { id: 3, sport: 'pickleball', date: new Date().toISOString().split('T')[0], court: 'Court 1 (Pro Acrylic)', slot: '07:00 AM - 08:00 AM', name: 'Dr. Sneha' },
+            { id: 4, sport: 'pickleball', date: new Date().toISOString().split('T')[0], court: 'Court 2 (Pro Acrylic)', slot: '05:00 PM - 06:00 PM', name: 'Vikram Singh' },
+        ];
+
+        // Initial launch setup
+        window.onload = function() {
+            // Set input defaults
+            const datePicker = document.getElementById('date-picker');
+            datePicker.value = selectedDate;
+            datePicker.min = selectedDate;
+            
+            // Set date range up to 7 days in advance
+            const maxDate = new Date();
+            maxDate.setDate(maxDate.getDate() + 7);
+            datePicker.max = maxDate.toISOString().split('T')[0];
+
+            // Render components
+            renderDisciplineNotice();
+            render();
+        };
+
+        // UI Toast Notifier Helper
+        function showToast(msg, type = "success") {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const isError = type === 'error';
+            toast.className = `flex items-center gap-3 px-5 py-4 rounded-xl shadow-2xl border transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto max-w-sm ${
+                isError 
+                    ? 'bg-rose-950/90 border-rose-500/50 text-rose-200' 
+                    : 'bg-emerald-950/90 border-emerald-500/50 text-emerald-200'
+            }`;
+
+            const iconName = isError ? 'shield-alert' : 'check-circle-2';
+            toast.innerHTML = `
+                <i data-lucide="${iconName}" class="h-6 w-6 shrink-0 ${isError ? 'text-rose-400' : 'text-emerald-400'}"></i>
+                <span class="font-medium text-sm">${msg}</span>
+            `;
+
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            // Trigger Transition animation
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            }, 50);
+
+            // Auto dismiss after 4 seconds
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-[-10px]');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 4000);
+        }
+
+        // Toggle Sports selection state
+        function setSport(sport) {
+            selectedSport = sport;
+            selectedCourt = courts[sport][0];
+            selectedSlot = null;
+            render();
+        }
+
+        // Change Date select input state
+        function setDate(dateVal) {
+            selectedDate = dateVal;
+            selectedSlot = null;
+            render();
+        }
+
+        // Set Active Court selection
+        function selectCourt(courtName) {
+            selectedCourt = courtName;
+            selectedSlot = null;
+            render();
+        }
+
+        // Choose a Booking Slot
+        function selectSlot(slotTime) {
+            selectedSlot = slotTime;
+            render();
+        }
+
+        // Price calculator
+        function getSlotPrice(slotTime) {
+            const slotObj = timeSlots.find(s => s.time === slotTime);
+            if (!slotObj) return 0;
+            return businessDetails.pricing[selectedSport][slotObj.type];
+        }
+
+        // Checks if slot is already occupied
+        function isSlotBooked(slotTime) {
+            return allBookings.some(
+                b => b.sport === selectedSport && 
+                     b.date === selectedDate && 
+                     b.court === selectedCourt && 
+                     b.slot === slotTime
+            );
+        }
+
+        // Handle client booking submission simulated response
+        function handleBookingSubmit(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById('input-name');
+            const phoneInput = document.getElementById('input-phone');
+            
+            const name = nameInput.value.trim();
+            const phone = phoneInput.value.trim();
+
+            if (!selectedSlot) {
+                showToast("Please choose an available slot first!", "error");
+                return;
+            }
+            if (!name || !phone) {
+                showToast("Please fill in all details.", "error");
+                return;
+            }
+            if (phone.length < 10) {
+                showToast("Please enter a valid 10-digit mobile number.", "error");
+                return;
+            }
+
+            // Book slot simulated entry
+            const receiptData = {
+                id: Date.now(),
+                sport: selectedSport,
+                date: selectedDate,
+                court: selectedCourt,
+                slot: selectedSlot,
+                name: name,
+                phone: phone
+            };
+
+            allBookings.push(receiptData);
+
+            // Trigger success receipt popup
+            showReceipt(receiptData);
+
+            // Clean States for next booking
+            selectedSlot = null;
+            nameInput.value = '';
+            phoneInput.value = '';
+            
+            render();
+        }
+
+        // Close Receipt modal helper
+        function closeReceipt() {
+            document.getElementById('receipt-modal').classList.add('hidden');
+        }
+
+        // Pop up the confirmed booking receipt modal
+        function showReceipt(data) {
+            document.getElementById('receipt-name').innerText = data.name;
+            document.getElementById('receipt-phone').innerText = `+91 ${data.phone}`;
+            document.getElementById('receipt-sport').innerText = data.sport === 'cricket' ? 'Box Cricket 🏏' : 'Pickleball 🏓';
+            document.getElementById('receipt-court').innerText = data.court;
+            document.getElementById('receipt-slot').innerText = data.slot;
+            
+            const formattedDate = new Date(data.date).toLocaleDateString('en-US', { 
+                weekday: 'short', 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+            document.getElementById('receipt-date').innerText = formattedDate;
+            document.getElementById('receipt-total').innerText = `₹${getSlotPrice(data.slot)}`;
+
+            document.getElementById('receipt-modal').classList.remove('hidden');
+        }
+
+        // Render Discipline notices list dynamically
+        function renderDisciplineNotice() {
+            const container = document.getElementById('discipline-grid-container');
+            container.innerHTML = disciplineRules.map(rule => `
+                <div class="bg-slate-950 border border-slate-800/80 hover:border-slate-700/80 p-5 rounded-2xl transition-all duration-200 hover:-translate-y-1 group">
+                    <div class="flex items-center justify-between gap-3 mb-3">
+                        <div class="h-8 w-8 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-amber-400 font-bold text-xs group-hover:bg-amber-500 group-hover:text-slate-950 transition-colors">
+                            0${rule.id}
+                        </div>
+                        <span class="text-[10px] uppercase font-black tracking-widest text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full border border-amber-500/20">
+                            ${rule.highlight}
+                        </span>
+                    </div>
+                    <h4 class="font-bold text-sm text-slate-200 group-hover:text-white transition-colors">
+                        ${rule.title}
+                    </h4>
+                    <p class="text-xs text-slate-400 mt-2 leading-relaxed">
+                        ${rule.desc}
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        // Master UI Render Loop Function
+        function render() {
+            // Theme accent adjustments
+            const isCricket = selectedSport === 'cricket';
+            const accentClass = isCricket ? 'bg-emerald-500 text-slate-950 shadow-lg shadow-emerald-500/25' : 'bg-lime-400 text-slate-950 shadow-lg shadow-lime-400/25';
+            const inactiveClass = 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/50';
+
+            // 1. Sport selection buttons
+            const cricketBtn = document.getElementById('btn-switch-cricket');
+            const pickleballBtn = document.getElementById('btn-switch-pickleball');
+
+            if (isCricket) {
+                cricketBtn.className = `flex items-center justify-center gap-3 py-4 px-4 rounded-xl font-bold text-sm transition-all duration-200 ${accentClass}`;
+                pickleballBtn.className = `flex items-center justify-center gap-3 py-4 px-4 rounded-xl font-bold text-sm transition-all duration-200 ${inactiveClass}`;
+            } else {
+                cricketBtn.className = `flex items-center justify-center gap-3 py-4 px-4 rounded-xl font-bold text-sm transition-all duration-200 ${inactiveClass}`;
+                pickleballBtn.className = `flex items-center justify-center gap-3 py-4 px-4 rounded-xl font-bold text-sm transition-all duration-200 ${accentClass}`;
+            }
+
+            // Update Selected legend colors
+            const selectedLegendColor = document.querySelector('.id-selected-color-legend');
+            const selectedLegendText = document.querySelector('.id-selected-text-legend');
+            selectedLegendColor.className = `id-selected-color-legend h-3 w-3 rounded block ${isCricket ? 'bg-emerald-500' : 'bg-lime-400'}`;
+            selectedLegendText.className = `id-selected-text-legend ${isCricket ? 'text-emerald-400' : 'text-lime-400'}`;
+
+            // 2. Render Court select tabs
+            const courtContainer = document.getElementById('court-tabs-container');
+            const courtList = courts[selectedSport];
+            courtContainer.innerHTML = courtList.map(courtName => {
+                const isSelected = selectedCourt === courtName;
+                let borderActiveStyle = '';
+                if (isSelected) {
+                    borderActiveStyle = isCricket 
+                        ? 'border-emerald-500 bg-emerald-500/10 text-emerald-200' 
+                        : 'border-lime-400 bg-lime-400/10 text-lime-200';
+                } else {
+                    borderActiveStyle = 'border-slate-800 bg-slate-950 hover:border-slate-700 text-slate-400';
+                }
+                
+                return `
+                    <button
+                        onclick="selectCourt('${courtName}')"
+                        class="p-4 rounded-2xl border text-left transition-all ${borderActiveStyle}"
+                    >
+                        <div class="text-xs font-semibold text-slate-500">Arena Name</div>
+                        <div class="font-bold text-sm mt-1">${courtName}</div>
+                    </button>
+                `;
+            }).join('');
+
+            // 3. Render time slot grid
+            const slotsContainer = document.getElementById('slots-grid-container');
+            slotsContainer.innerHTML = timeSlots.map(slot => {
+                const booked = isSlotBooked(slot.time);
+                const isSelected = selectedSlot === slot.time;
+                const slotPrice = getSlotPrice(slot.time);
+
+                let buttonClass = '';
+                if (booked) {
+                    buttonClass = 'border-rose-950/40 bg-rose-950/20 cursor-not-allowed opacity-50';
+                } else if (isSelected) {
+                    buttonClass = isCricket
+                        ? 'border-emerald-500 bg-emerald-500 text-slate-950'
+                        : 'border-lime-400 bg-lime-400 text-slate-950';
+                } else {
+                    buttonClass = 'border-slate-800 bg-slate-950 hover:bg-slate-900 hover:border-slate-700 text-slate-200';
+                }
+
+                const priceBadgeColor = booked 
+                    ? 'text-rose-400 bg-rose-950/25' 
+                    : isSelected 
+                        ? 'bg-slate-950/20 text-slate-950' 
+                        : 'bg-slate-900 text-emerald-400';
+
+                const timeStart = slot.time.split(' - ')[0];
+                const timeEnd = slot.time.split(' - ')[1];
+
+                const primeIndicator = (slot.type === 'night' && !booked) 
+                    ? `<span class="absolute top-1 right-1 h-1.5 w-1.5 rounded-full ${isSelected ? 'bg-slate-950' : 'bg-amber-400'}" title="Prime Slot (Night Lights On)"></span>`
+                    : '';
+
+                return `
+                    <button
+                        ${booked ? 'disabled' : ''}
+                        onclick="selectSlot('${slot.time}')"
+                        class="relative p-3 rounded-xl border text-center transition-all group flex flex-col items-center justify-center min-h-[84px] ${buttonClass}"
+                    >
+                        <div class="font-bold text-xs sm:text-sm ${isSelected ? 'text-slate-950' : 'text-slate-100'}">
+                            ${timeStart}
+                        </div>
+                        <div class="text-[10px] mt-0.5 ${isSelected ? 'text-slate-800' : 'text-slate-500'}">
+                            to ${timeEnd}
+                        </div>
+                        <div class="mt-2 text-xs font-extrabold px-2 py-0.5 rounded ${priceBadgeColor}">
+                            ${booked ? 'Booked' : `₹${slotPrice}`}
+                        </div>
+                        ${primeIndicator}
+                    </button>
+                `;
+            }).join('');
+
+            // 4. Update Summary Card Side Pane
+            const summaryBadge = document.getElementById('summary-sport-badge');
+            summaryBadge.innerText = isCricket ? 'Box Cricket 🏏' : 'Pickleball 🏓';
+            summaryBadge.className = `font-bold uppercase tracking-wider text-xs px-3 py-1 rounded-full ${
+                isCricket ? 'bg-emerald-500/10 text-emerald-400' : 'bg-lime-400/10 text-lime-400'
+            }`;
+
+            // Format dynamic date
+            const dateObj = new Date(selectedDate);
+            document.getElementById('summary-date').innerText = dateObj.toLocaleDateString('en-US', { 
+                weekday: 'short', 
+                year: 'numeric', 
+                month: 'short', 
+                day: 'numeric' 
+            });
+
+            document.getElementById('summary-court').innerText = selectedCourt;
+
+            const summarySlotElement = document.getElementById('summary-slot');
+            const priceContainer = document.getElementById('summary-pricing-container');
+            const submitBtn = document.getElementById('submit-booking-btn');
+            const submitBtnText = document.getElementById('submit-btn-text');
+
+            if (selectedSlot) {
+                summarySlotElement.innerText = selectedSlot;
+                summarySlotElement.className = "font-bold text-emerald-400";
+
+                priceContainer.classList.remove('hidden');
+                document.getElementById('summary-price-tag').innerText = `₹${getSlotPrice(selectedSlot)}`;
+
+                submitBtn.disabled = false;
+                submitBtn.className = "w-full py-4 px-4 rounded-xl font-bold text-sm shadow-xl flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-emerald-500 to-lime-400 text-slate-950 hover:opacity-90 cursor-pointer active:scale-[0.98]";
+                submitBtnText.innerText = "Reserve Slot Instantly";
+            } else {
+                summarySlotElement.innerText = "Please select above";
+                summarySlotElement.className = "font-bold text-slate-500 italic";
+
+                priceContainer.classList.add('hidden');
+
+                submitBtn.disabled = true;
+                submitBtn.className = "w-full py-4 px-4 rounded-xl font-bold text-sm shadow-xl flex items-center justify-center gap-2 transition-all bg-slate-800 text-slate-500 cursor-not-allowed";
+                submitBtnText.innerText = "Select Timing Slot Above";
+            }
+
+            // Sync all visual Lucide icons rendered dynamically inside templates
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
